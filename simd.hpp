@@ -49,7 +49,9 @@
 
 #include "pack.hpp"
 
+#ifndef __CUDACC__
 #include "vector_size.hpp"
+#endif
 
 #ifndef SIMD_FORCE_SCALAR
 #if defined( __CUDACC__ )
