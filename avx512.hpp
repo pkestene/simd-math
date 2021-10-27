@@ -150,6 +150,13 @@ class simd<float, simd_abi::avx512> {
   SIMD_ALWAYS_INLINE inline simd operator-(simd const& other) const {
     return simd(_mm512_sub_ps(m_value, other.m_value));
   }
+  SIMD_ALWAYS_INLINE inline simd& operator+=(simd const & other) {
+    m_value = _mm512_add_ps(m_value, other.m_value);
+    return *this;
+  }
+  SIMD_ALWAYS_INLINE inline void operator+=(simd const volatile& other) volatile {
+    m_value = _mm512_add_ps(m_value, other.m_value);
+  }
   SIMD_ALWAYS_INLINE SIMD_HOST_DEVICE inline simd operator-() const {
     return simd(_mm512_sub_ps(_mm512_set1_ps(0.0), m_value));
   }
@@ -327,6 +334,13 @@ class simd<double, simd_abi::avx512> {
   }
   SIMD_ALWAYS_INLINE inline simd operator+(simd const& other) const {
     return simd(_mm512_add_pd(m_value, other.m_value));
+  }
+  SIMD_ALWAYS_INLINE inline simd& operator+=(simd const & other) {
+    m_value = _mm512_add_pd(m_value, other.m_value);
+    return *this;
+  }
+  SIMD_ALWAYS_INLINE inline void operator+=(simd const volatile& other) volatile {
+    m_value = _mm512_add_pd(m_value, other.m_value);
   }
 #ifdef STK_VOLATILE_SIMD
   SIMD_ALWAYS_INLINE inline void plus_equals(simd const volatile& other) volatile {
