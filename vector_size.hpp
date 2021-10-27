@@ -172,6 +172,9 @@ class simd<T, simd_abi::vector_size<N>> {
   SIMD_ALWAYS_INLINE simd operator+=(simd const& other) const {
     return m_value += other.m_value;
   }
+  SIMD_ALWAYS_INLINE void operator+=(simd const volatile& other) volatile {
+    m_value += other.m_value;
+  }
   SIMD_ALWAYS_INLINE simd operator-(simd const& other) const {
     return simd(m_value - other.m_value);
   }
