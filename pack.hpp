@@ -172,6 +172,15 @@ class simd<T, simd_abi::pack<N>> {
     SIMD_PRAGMA for (int i = 0; i < size(); ++i) result[i] = m_value[i] + other.m_value[i];
     return result;
   }
+  SIMD_ALWAYS_INLINE void operator+=(simd const volatile & other) volatile {
+    simd result;
+    SIMD_PRAGMA for (int i = 0; i < size(); ++i) m_value[i] += other.m_value[i];
+    //return result;
+  }
+  SIMD_ALWAYS_INLINE simd operator+=(simd const & other) const {
+    SIMD_PRAGMA for (int i = 0; i < size(); ++i) m_value[i] += other.m_value[i];
+    return *this;
+  }
   SIMD_ALWAYS_INLINE simd operator-(simd const& other) const {
     simd result;
     SIMD_PRAGMA for (int i = 0; i < size(); ++i) result[i] = m_value[i] - other.m_value[i];
